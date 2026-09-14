@@ -1,0 +1,112 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm audit --omit=dev --audit-level=high
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: .test-build/package/*.tgz
+
+  runtimes:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: [node18, node20, node22, node24, bun, deno, workers, edge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: oven-sh/setup-bun@v2
+        if: matrix.runtime == 'bun'
+        with:
+          bun-version: '1.4.2'
+      - uses: denoland/setup-deno@v2
+        if: matrix.runtime == 'deno'
+        with:
+          deno-version: '2.9.6'
+      - name: Install target Node separately from build tooling
+        if: startsWith(matrix.runtime, 'node')
+        env:
+          TARGET: ${{ matrix.runtime }}
+        run: |
+          VERSION="${TARGET#node}"
+          npm install --prefix .test-build/target-node --no-save "node@$VERSION"
+          echo "NODE_BIN=$PWD/.test-build/target-node/node_modules/node/bin/node" >> "$GITHUB_ENV"
+      - name: Execute shared behavior suite inside the target runtime
+        env:
+          TARGET: ${{ matrix.runtime }}
+        run: |
+          if [[ "$TARGET" == node* ]]; then npm run test:node; else npm run "test:$TARGET"; fi
+      - name: Bun native SQLite integration
+        if: matrix.runtime == 'bun'
+        run: bun scripts/sqlite-smoke.mjs
+
+  sqlite:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - if: matrix.node == 18 || matrix.node == 20
+        run: npm install --no-save better-sqlite3@11.10.0
+      - run: npm run test:adapters
+
+  redis:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        redis: [7-alpine, 8-alpine]
+    services:
+      redis:
+        image: redis:${{ matrix.redis }}
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:redis
+        env:
+          REDIS_URL: redis://127.0.0.1:6379

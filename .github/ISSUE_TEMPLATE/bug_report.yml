@@ -1,0 +1,28 @@
+name: Bug report
+description: Report an incorrect resilience decision or runtime compatibility problem.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Package and runtime versions
+      placeholder: '0.1.0, Node 22.18.0, SQLite'
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Include policy configuration, persistence backend, concurrency, and code. Remove credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant errors or trace attributes
+      render: text

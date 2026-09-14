@@ -1,0 +1,302 @@
+{
+  "name": "@1a8jkf/universal-resilience-toolkit",
+  "version": "0.1.0",
+  "description": "Composable retry, rate limiting, circuit breaking, and portable persistence for JavaScript runtimes.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "workerd": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/browser/index.js"
+      },
+      "edge-light": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/browser/index.js"
+      },
+      "browser": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/browser/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./retry": {
+      "workerd": {
+        "types": "./dist/retry.d.ts",
+        "default": "./dist/browser/retry.js"
+      },
+      "edge-light": {
+        "types": "./dist/retry.d.ts",
+        "default": "./dist/browser/retry.js"
+      },
+      "browser": {
+        "types": "./dist/retry.d.ts",
+        "default": "./dist/browser/retry.js"
+      },
+      "import": {
+        "types": "./dist/retry.d.ts",
+        "default": "./dist/retry.js"
+      },
+      "require": {
+        "types": "./dist/retry.d.cts",
+        "default": "./dist/retry.cjs"
+      }
+    },
+    "./rate-limit": {
+      "workerd": {
+        "types": "./dist/rate-limit.d.ts",
+        "default": "./dist/browser/rate-limit.js"
+      },
+      "edge-light": {
+        "types": "./dist/rate-limit.d.ts",
+        "default": "./dist/browser/rate-limit.js"
+      },
+      "browser": {
+        "types": "./dist/rate-limit.d.ts",
+        "default": "./dist/browser/rate-limit.js"
+      },
+      "import": {
+        "types": "./dist/rate-limit.d.ts",
+        "default": "./dist/rate-limit.js"
+      },
+      "require": {
+        "types": "./dist/rate-limit.d.cts",
+        "default": "./dist/rate-limit.cjs"
+      }
+    },
+    "./circuit-breaker": {
+      "workerd": {
+        "types": "./dist/circuit-breaker.d.ts",
+        "default": "./dist/browser/circuit-breaker.js"
+      },
+      "edge-light": {
+        "types": "./dist/circuit-breaker.d.ts",
+        "default": "./dist/browser/circuit-breaker.js"
+      },
+      "browser": {
+        "types": "./dist/circuit-breaker.d.ts",
+        "default": "./dist/browser/circuit-breaker.js"
+      },
+      "import": {
+        "types": "./dist/circuit-breaker.d.ts",
+        "default": "./dist/circuit-breaker.js"
+      },
+      "require": {
+        "types": "./dist/circuit-breaker.d.cts",
+        "default": "./dist/circuit-breaker.cjs"
+      }
+    },
+    "./persistence": {
+      "workerd": {
+        "types": "./dist/persistence.d.ts",
+        "default": "./dist/browser/persistence.js"
+      },
+      "edge-light": {
+        "types": "./dist/persistence.d.ts",
+        "default": "./dist/browser/persistence.js"
+      },
+      "browser": {
+        "types": "./dist/persistence.d.ts",
+        "default": "./dist/browser/persistence.js"
+      },
+      "import": {
+        "types": "./dist/persistence.d.ts",
+        "default": "./dist/persistence.js"
+      },
+      "require": {
+        "types": "./dist/persistence.d.cts",
+        "default": "./dist/persistence.cjs"
+      }
+    },
+    "./telemetry": {
+      "workerd": {
+        "types": "./dist/telemetry.d.ts",
+        "default": "./dist/browser/telemetry.js"
+      },
+      "edge-light": {
+        "types": "./dist/telemetry.d.ts",
+        "default": "./dist/browser/telemetry.js"
+      },
+      "browser": {
+        "types": "./dist/telemetry.d.ts",
+        "default": "./dist/browser/telemetry.js"
+      },
+      "import": {
+        "types": "./dist/telemetry.d.ts",
+        "default": "./dist/telemetry.js"
+      },
+      "require": {
+        "types": "./dist/telemetry.d.cts",
+        "default": "./dist/telemetry.cjs"
+      }
+    },
+    "./adapters/memory": {
+      "workerd": {
+        "types": "./dist/adapters/memory.d.ts",
+        "default": "./dist/browser/adapters/memory.js"
+      },
+      "edge-light": {
+        "types": "./dist/adapters/memory.d.ts",
+        "default": "./dist/browser/adapters/memory.js"
+      },
+      "browser": {
+        "types": "./dist/adapters/memory.d.ts",
+        "default": "./dist/browser/adapters/memory.js"
+      },
+      "import": {
+        "types": "./dist/adapters/memory.d.ts",
+        "default": "./dist/adapters/memory.js"
+      },
+      "require": {
+        "types": "./dist/adapters/memory.d.cts",
+        "default": "./dist/adapters/memory.cjs"
+      }
+    },
+    "./adapters/sqlite": {
+      "workerd": {
+        "types": "./dist/adapters/sqlite.d.ts",
+        "default": "./dist/browser/adapters/sqlite.js"
+      },
+      "edge-light": {
+        "types": "./dist/adapters/sqlite.d.ts",
+        "default": "./dist/browser/adapters/sqlite.js"
+      },
+      "browser": {
+        "types": "./dist/adapters/sqlite.d.ts",
+        "default": "./dist/browser/adapters/sqlite.js"
+      },
+      "import": {
+        "types": "./dist/adapters/sqlite.d.ts",
+        "default": "./dist/adapters/sqlite.js"
+      },
+      "require": {
+        "types": "./dist/adapters/sqlite.d.cts",
+        "default": "./dist/adapters/sqlite.cjs"
+      }
+    },
+    "./adapters/redis": {
+      "workerd": {
+        "types": "./dist/adapters/redis.d.ts",
+        "default": "./dist/browser/adapters/redis.js"
+      },
+      "edge-light": {
+        "types": "./dist/adapters/redis.d.ts",
+        "default": "./dist/browser/adapters/redis.js"
+      },
+      "browser": {
+        "types": "./dist/adapters/redis.d.ts",
+        "default": "./dist/browser/adapters/redis.js"
+      },
+      "import": {
+        "types": "./dist/adapters/redis.d.ts",
+        "default": "./dist/adapters/redis.js"
+      },
+      "require": {
+        "types": "./dist/adapters/redis.d.cts",
+        "default": "./dist/adapters/redis.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "docs"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "keywords": [
+    "resilience",
+    "retry",
+    "rate-limit",
+    "circuit-breaker",
+    "edge",
+    "typescript"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test:types": "tsc -p tests/types/tsconfig.json",
+    "test": "npm run build && npm run test:node && npm run test:adapters",
+    "test:node": "node scripts/run-portable.mjs node",
+    "test:bun": "node scripts/run-portable.mjs bun",
+    "test:deno": "node scripts/run-portable.mjs deno",
+    "test:workers": "node scripts/run-portable.mjs workers",
+    "test:edge": "node scripts/run-portable.mjs edge",
+    "test:adapters": "node --test tests/adapters.test.mjs",
+    "test:redis": "node --test tests/redis.integration.test.mjs",
+    "test:package": "node scripts/check-package.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run build && npm run typecheck && npm run lint && npm run format:check && npm run test:node && npm run test:adapters && npm run test:types && npm run test:package",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run check && changeset publish",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "better-sqlite3": ">=11 <14"
+  },
+  "peerDependenciesMeta": {
+    "@opentelemetry/api": {
+      "optional": true
+    },
+    "better-sqlite3": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@edge-runtime/vm": "^5.0.0",
+    "@eslint/js": "^9.39.0",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/sdk-trace-base": "^2.0.0",
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.39.0",
+    "globals": "^16.0.0",
+    "miniflare": "4.20260730.0",
+    "prettier": "^3.6.0",
+    "redis": "^5.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.0.0"
+  },
+  "overrides": {
+    "tsup": {
+      "esbuild": "^0.28.1"
+    },
+    "miniflare": {
+      "undici": "^7.29.0",
+      "sharp": "^0.35.4"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1a8jkf/universal-resilience-toolkit.git"
+  },
+  "homepage": "https://github.com/1a8jkf/universal-resilience-toolkit#readme",
+  "bugs": {
+    "url": "https://github.com/1a8jkf/universal-resilience-toolkit/issues"
+  }
+}

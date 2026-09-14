@@ -1,0 +1,4 @@
+# Copy to .npmrc and set NODE_AUTH_TOKEN through your local environment.
+# Never paste a token into a tracked file.
+@1a8jkf:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}

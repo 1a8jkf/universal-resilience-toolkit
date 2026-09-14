@@ -1,0 +1,37 @@
+name: Publish to GitHub Packages
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    if: vars.ENABLE_GITHUB_PACKAGES == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+      - run: npm ci
+      - run: npm run check
+      - name: Apply the required GitHub owner scope
+        env:
+          PACKAGE_OWNER: ${{ github.repository_owner }}
+          PACKAGE_REPOSITORY: ${{ github.repository }}
+        run: |
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const p = JSON.parse(fs.readFileSync("package.json", "utf8"));
+            p.name = `@${process.env.PACKAGE_OWNER.toLowerCase()}/universal-resilience-toolkit`;
+            p.repository = { type: "git", url: `https://github.com/${process.env.PACKAGE_REPOSITORY}.git` };
+            p.publishConfig = { registry: "https://npm.pkg.github.com" };
+            fs.writeFileSync("package.json", JSON.stringify(p, null, 2) + "\n");
+          '
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

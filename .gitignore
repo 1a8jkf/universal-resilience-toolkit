@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.test-build/
+coverage/
+*.tgz
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+.env.*
+!.env.example
+.npmrc
+.npmrc.*
+!.npmrc.example
