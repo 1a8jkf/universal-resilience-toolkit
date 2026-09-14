@@ -12,7 +12,6 @@ permissions:
 
 jobs:
   release:
-    if: vars.ENABLE_GITHUB_PACKAGES == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
