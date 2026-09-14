@@ -28,13 +28,13 @@ const resilientFetch = withResilience(
 const response = await resilientFetch('https://example.com');
 ```
 
-Para instalar o pacote (como ele está no GitHub Packages), você precisa adicionar a configuração do repositório no arquivo `.npmrc` do seu projeto:
+To install the package (since it is hosted on GitHub Packages), you need to add the repository configuration to your project's `.npmrc` file:
 
 ```ini
 @1a8jkf:registry=https://npm.pkg.github.com
 ```
 
-Você também precisará estar autenticado com um Personal Access Token com permissão de `read:packages`.
+You will also need to authenticate using a Personal Access Token with `read:packages` permission.
 
 ## What it combines
 
