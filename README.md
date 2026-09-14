@@ -28,10 +28,13 @@ const resilientFetch = withResilience(
 const response = await resilientFetch('https://example.com');
 ```
 
-**Release candidate:** the install command is the intended public package name. The
-package has not been published yet. To try this checkout, run `npm ci && npm run build`,
-then `npm pack` and install the resulting `.tgz` in your application.
+Para instalar o pacote (como ele está no GitHub Packages), você precisa adicionar a configuração do repositório no arquivo `.npmrc` do seu projeto:
 
+```ini
+@1a8jkf:registry=https://npm.pkg.github.com
+```
+
+Você também precisará estar autenticado com um Personal Access Token com permissão de `read:packages`.
 ## What it combines
 
 | Package                                              | Retry/backoff         | Rate limiting                 | Circuit breaker  | State strategy                       |
