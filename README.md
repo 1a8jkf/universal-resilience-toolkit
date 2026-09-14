@@ -35,6 +35,7 @@ Para instalar o pacote (como ele está no GitHub Packages), você precisa adicio
 ```
 
 Você também precisará estar autenticado com um Personal Access Token com permissão de `read:packages`.
+
 ## What it combines
 
 | Package                                              | Retry/backoff         | Rate limiting                 | Circuit breaker  | State strategy                       |
